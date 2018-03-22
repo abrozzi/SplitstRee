@@ -1,0 +1,11 @@
+Package: SplitstRee
+Type: Package
+Title: R utils for microbiology bioinformatics
+Version: 0.1
+Date: 2016-03-01
+Author: Alessandro Brozzi
+Maintainer: <alessandro.brozzi@gmail.com>
+Description: A set of R functions to work with SplitsTree
+License: GPL
+LazyData: TRUE
+RoxygenNote: 6.0.1
