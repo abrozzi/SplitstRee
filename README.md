@@ -1,7 +1,7 @@
-# microbio
-A set of R functions, tools, utilities and wrappers to perform bionformatic analyses applied to Microbiology.
+# SplitstRee
+A set of R functions to work with SplitsTree
 
-[How to] (https://github.com/abrozzi/microbio#how-to)
+[How to] (https://github.com/abrozzi/SplitstRee#how-to)
 
 * [Git and RStudio](#git-and-rstudio)
 * [Install pyclone] (#install-pyclone)
