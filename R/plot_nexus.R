@@ -15,7 +15,7 @@
 #' @export
 #'
 #'
-plot_nexus <- function(obj, taxa=NULL, bg, col, cex, pch, text, arrange, col.bg, defaults, ylim=NULL, main=NULL, lty=1, lwd=1, col.segments="gray") {
+plot_nexus <- function(obj, taxa=NULL, bg, col, cex, pch, text, arrange, col.bg, defaults, ylim=NULL, xlim=NULL, main=NULL, lty=1, lwd=1, col.segments="gray") {
 
   DF = data.frame(
     X = obj$VERTICES$X[match(obj$TRANSLATE$VID, obj$VERTICES$VID)],
@@ -50,6 +50,7 @@ if( !is.null(taxa)) {
        pch=DF.b$pch,
        type="n",
        ylim=ylim,
+       xlim=xlim,
        ylab="",
        xlab="",
        axes=FALSE,
@@ -65,6 +66,7 @@ if( !is.null(taxa)) {
          cex=DF.b$cex,
          pch=DF.b$pch,
          ylim=ylim,
+         xlim=xlim,
          ylab="",
          xlab=""
   )
@@ -78,6 +80,7 @@ if( !is.null(taxa)) {
          cex=DF.f$cex,
          pch=DF.f$pch,
          ylim=ylim,
+         xlim=xlim,
          ylab="",
          xlab=""
   )
@@ -103,6 +106,7 @@ if( !is.null(taxa)) {
        cex=DF$cex,
        pch=DF$pch,
        ylim=ylim,
+       xlim=xlim,
        ylab="",
        xlab="",
        axes=FALSE,
