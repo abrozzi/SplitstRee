@@ -15,9 +15,9 @@
 #'
 import.nexus <- function(nexus) {
 
-  semiColumn = system(paste("grep -nr ';'", nexus), intern=TRUE)
+  # semiColumn = system(paste("grep -nr ';'", nexus), intern=TRUE)
 
-  semiColumn = as.numeric(sapply(strsplit(semiColumn,":"), function(x) x[2]))
+  # semiColumn = as.numeric(sapply(strsplit(semiColumn,":"), function(x) x[2]))
 
   ##### TRANSLATE
 
