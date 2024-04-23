@@ -17,15 +17,10 @@ install.library("devtools")
 install_git(https://github.com/abrozzi/SplitstRee.git)
 ```
 
-# 
 
-[How to] (<https://github.com/abrozzi/SplitstRee#how-to>)
+# Troubleshooting 
 
--   [Git and RStudio](#git-and-rstudio)
-
-# How to
-
-### Set SSh key Mac for github
+## SSH key for Mac and github
 
 I had some troubles with git push. Basically everytime I was doing a push a pop-up window saied "Username for <https://github.com>". Next message was to insert password, but nothing worked. Surfing a bit the web,I found the solution which worked for me.
 
@@ -62,7 +57,7 @@ which is something like:
 
 copy paste and add a title in github.com.
 
-### Git and RStudio {#git-and-rstudio}
+### Git and RStudio
 
 1 - Create by RStudio a project to build a package:
 
