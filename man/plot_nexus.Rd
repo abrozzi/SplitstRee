@@ -4,16 +4,48 @@
 \alias{plot_nexus}
 \title{Plot the network}
 \usage{
-plot_nexus(obj, taxa = NULL, bg, col, cex, pch, text, arrange, col.bg,
-  defaults, ylim = NULL, main = NULL, lty = 1, lwd = 1,
-  col.segments = "gray")
+plot_nexus(
+  obj,
+  taxa = NULL,
+  bg,
+  col,
+  cex,
+  pch,
+  text,
+  arrange,
+  col.bg,
+  defaults,
+  ylim = NULL,
+  xlim = NULL,
+  main = NULL,
+  lwd = 3,
+  lty.seg = 1,
+  lwd.seg = 1,
+  col.segments = "gray"
+)
 }
 \arguments{
+\item{taxa}{is a vector of tips you want to format. Tips are format based of defaults set by list defaults. If a subset of tips must be reformat provide a vector of tips and relative bg, col, cex, pch, text, col.bg.}
+
+\item{bg}{is the fill color of the tips}
+
+\item{col}{is the contour color of the tips}
+
+\item{cex}{is the size of the tips}
+
+\item{pch}{is the type of symbol of the tips. Please use numbers from 21 to 25 to color the fill and the contour.}
+
+\item{text}{is the text you want to print in each box of each tip.}
+
 \item{arrange}{can be one of the two: "back" or "front"}
 
 \item{col.bg}{is the color of the box of the text}
 
-\item{defaults}{is a list with names: col, bg, cex, pch, text, arrange}
+\item{defaults}{is a list with names: col, bg, cex, pch, text, arrange. Remember that "bg" = fill color and "col" = contour color. pch from 21 to 25 allow contour (col) and fill (bg) color}
+
+\item{lwd}{is line width of the border of the points (tips)}
+
+\item{lwd.seg}{is line width of the segments (edges)}
 }
 \value{
 plot
@@ -22,9 +54,11 @@ plot
 \code{plot_nexus} plot the network
 }
 \examples{
-nex = import.nexus(myfile.nexus)
-plot_nexus(nex)
-
+def = list(col="blue", bg="orange", cex=5, pch=21, text=NA, arrange="back")
+nex = import.nexus(myfile)
+plot_nexus(nex, defaults=def, lwd = 3, lwd.seg = 1, col.bg="white")
+# format tip A and B
+plot_nexus(nex, taxa = c("A", "B"), pch = c(22,22), bg = c("red", "red"), col=c("black", "black"),cex=c(3,3), text=c("A","B"), arrange="front", defaults=def, lwd = 3, lwd.seg = 1, col.bg="white")
 }
 \author{
 Alessandro Brozzi
