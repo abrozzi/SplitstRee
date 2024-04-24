@@ -17,6 +17,72 @@ install.library("devtools")
 install_git(https://github.com/abrozzi/SplitstRee.git)
 ```
 
+# How to export network from SplitsTree
+
+Use the tab File -> Export to export the network including mandatory fields `Taxa` and `Network`. You can select also other fields. The file format is a text file.
+The exported network should look like the following:
+
+```
+#nexus
+
+BEGIN Taxa;
+DIMENSIONS ntax=140;
+TAXLABELS
+[1] '88'
+[2] '89'
+[3] '110'
+[4] '111'
+[5] '112'
+;
+END; [Taxa]
+
+BEGIN Trees;
+PROPERTIES rooted=yes;
+[TREES]
+[1] tree 't1'=[&R] (121:0.1484583917587429,(47:0.10443825927426448,105:0.10832991141364293):0.007390799743357943):0.004345286343588104,((((97:0.1123931641820975,(8:0.09844731583656807,28:0.0973001623178561):0.00916006309308222):0.005493354891964678)
+END; [Trees]
+
+
+BEGIN Network;
+DIMENSIONS ntax=140 nvertices=278 nedges=277;
+DRAW to_scale;
+TRANSLATE
+2 '88',
+3 '86',
+4 '95',
+;
+VERTICES
+1 -0.100395784 0.0 s=n,
+2 0.0 0.0 s=n,
+3 0.0039716596 0.012728599 s=n,
+4 0.0079152705 0.015233612 s=n,
+5 0.039169874 0.021456474 s=n
+;
+VLABELS
+2 '88' x=12 y=-74 f='Dialog-PLAIN-10',
+3 '86' x=12 y=156,
+4 '95' x=12 y=122,
+5 '10' x=12 y=22,
+;
+EDGES
+1 1 2 s=163 w=0.100395784,
+2 142 1 s=187 w=0.0109897,
+;
+END; [Network]
+
+```
+
+The package provides a real example of an export file from SplitsTree:
+
+```
+myfile <- system.file("input.nexus", package = "SplitstRee")
+```
+
+To read the network inside R use:
+
+```
+net <- import.nexus(myfile)
+```
 
 # Troubleshooting 
 
@@ -57,7 +123,7 @@ which is something like:
 
 copy paste and add a title in github.com.
 
-### Git and RStudio
+## Git and RStudio
 
 1 - Create by RStudio a project to build a package:
 
