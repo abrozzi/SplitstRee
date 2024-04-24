@@ -4,8 +4,13 @@
 \alias{assign.tip.colors}
 \title{Assign colors to tips}
 \usage{
-assign.tip.colors(tree, tip2category, na.col = "black",
-  unassigned.col = "gray", palette = NULL)
+assign.tip.colors(
+  tree,
+  tip2category,
+  na.col = "black",
+  unassigned.col = "gray",
+  palette = NULL
+)
 }
 \arguments{
 \item{tree}{a tree object of class "phylo"}

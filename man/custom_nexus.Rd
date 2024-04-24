@@ -4,9 +4,24 @@
 \alias{custom_nexus}
 \title{Color SplitsTree dendrograms}
 \usage{
-custom_nexus(nexus.file, tips, colors, outfile, fromBIGSdb = FALSE, fg,
-  vlabels, w = 20, h = 20, s = "r", f, lc, lk, edgecolor = "gray", plot,
-  SplitsTree.exe = "/Applications/SplitsTree/SplitsTree")
+custom_nexus(
+  nexus.file,
+  tips,
+  colors,
+  outfile,
+  fromBIGSdb = FALSE,
+  fg,
+  vlabels,
+  w = 20,
+  h = 20,
+  s = "r",
+  f,
+  lc,
+  lk,
+  edgecolor = "gray",
+  plot,
+  SplitsTree.exe = "/Applications/SplitsTree/SplitsTree"
+)
 }
 \arguments{
 \item{tips}{(leaves of the dendrogram)}
