@@ -114,7 +114,7 @@ if( !is.null(taxa)) {
 
   idx = which(!is.na(DF$text))
 
-  if(length(idx>0)) {
+  if(length(idx)>0) {
 
     r = col2rgb(col.bg)[1] / 255
     g = col2rgb(col.bg)[2] / 255
