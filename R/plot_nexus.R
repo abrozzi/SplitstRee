@@ -28,14 +28,25 @@
 #'
 plot_nexus <- function(obj, taxa=NULL, bg, col, cex, pch, text, arrange, col.bg, defaults, ylim=NULL, xlim=NULL, main=NULL, lwd = 3, lty.seg=1, lwd.seg=1, col.segments="gray", cex.text = 1) {
 
+  ############# init dataframe ############
+
   DF = data.frame(
-    X = obj$VERTICES$X[match(obj$TRANSLATE$VID, obj$VERTICES$VID)],
-    Y = obj$VERTICES$Y[match(obj$TRANSLATE$VID, obj$VERTICES$VID)],
-    LABEL = obj$TRANSLATE$LABEL,
-    stringsAsFactors = FALSE
+                 X = obj$VERTICES$X[match(obj$TRANSLATE$VID, obj$VERTICES$VID)],
+                 Y = obj$VERTICES$Y[match(obj$TRANSLATE$VID, obj$VERTICES$VID)],
+                 LABEL = obj$TRANSLATE$LABEL,
+                 stringsAsFactors = FALSE
   )
 
-  ## xlim AND ylim
+  DF$col     = defaults$col
+  DF$bg      = defaults$bg
+  DF$cex     = defaults$cex
+  DF$pch     = defaults$pch
+  DF$text    = defaults$text
+  DF$arrange = defaults$arrange
+
+  #######################################
+
+  ############# xlim, ylim ##############
 
   if (is.null(xlim)) {
     something = abs(diff(range(DF$X))/2)
@@ -47,26 +58,26 @@ plot_nexus <- function(obj, taxa=NULL, bg, col, cex, pch, text, arrange, col.bg,
 
   if (is.null(ylim)) {
     something = abs(diff(range(DF$Y)/2))
-  ylim = c(range(DF$Y)[1] - something,
+
+    ylim = c(range(DF$Y)[1] - something,
            range(DF$Y)[2] + something
   )
   }
 
-DF$col = defaults$col
-DF$bg = defaults$bg
-DF$cex = defaults$cex
-DF$pch = defaults$pch
-DF$text = defaults$text
-DF$arrange = defaults$arrange
+  ########################################
 
-if( !is.null(taxa)) {
+  ############# Custom select taxa (tips) ###########################
 
-  DF[match(taxa, DF$LABEL),"col"] = col
-  DF[match(taxa, DF$LABEL),"bg"] = bg
-  DF[match(taxa, DF$LABEL),"cex"] = cex
-  DF[match(taxa, DF$LABEL),"pch"] = pch
-  DF[match(taxa, DF$LABEL),"text"] = text
-  DF[match(taxa, DF$LABEL),"arrange"] = arrange
+  if( !is.null(taxa)) {
+
+  DF[match(taxa, DF$LABEL),"col"]     = col
+  DF[match(taxa, DF$LABEL),"bg"]      = bg
+  DF[match(taxa, DF$LABEL),"cex"]     = cex
+  DF[match(taxa, DF$LABEL),"pch"]     = pch
+  DF[match(taxa, DF$LABEL),"text"]    = text
+  DF[match(taxa, DF$LABEL),"arrange"] = "front"
+
+ }
 
   DF.b = DF[DF$arrange=="back", ]
 
@@ -125,31 +136,5 @@ if( !is.null(taxa)) {
 
   }
 
-} #else {
-
-  #plot(DF$X,
-  #     DF$Y,
-  #     col = DF$col,
-  #     bg  = DF$bg,
-  #     cex = DF$cex,
-  #     pch = DF$pch,
-  #     ylim = ylim,
-  #     xlim = xlim,
-  #     ylab = "",
-  #     xlab = "",
-  #     axes = FALSE,
-  #     main = main,
-  #     lwd = lwd
-  #)
-
-  #segments(x0 = obj$FROM$X, y0 = obj$FROM$Y, x1 = obj$TO$X, y1 = obj$TO$Y, col=col.segments, lty = lty.seg, lwd = lwd.seg)
-
-  #r = col2rgb(col.bg)[1] / 255
-  #g = col2rgb(col.bg)[2] / 255
-  #b = col2rgb(col.bg)[3] / 255
-
-  #boxtext(x = DF$X, y = DF$Y, labels = DF$LABEL, col.bg = rgb(r,g,b,alpha=0.5), pos = 4, padding = 0.3, cex = 2)
-
-#}
-
+}
 }
