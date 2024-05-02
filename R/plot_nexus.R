@@ -14,6 +14,7 @@
 #' @param cex is the size of the tips
 #' @param pch is the type of symbol of the tips. Please use numbers from 21 to 25 to color the fill and the contour.
 #' @param text is the text you want to print in each box of each tip.
+#' @param cex.text is the cex of the text.
 #' @return plot
 #' @author Alessandro Brozzi
 #' @examples
@@ -25,7 +26,7 @@
 #' @export
 #'
 #'
-plot_nexus <- function(obj, taxa=NULL, bg, col, cex, pch, text, arrange, col.bg, defaults, ylim=NULL, xlim=NULL, main=NULL, lwd = 3, lty.seg=1, lwd.seg=1, col.segments="gray") {
+plot_nexus <- function(obj, taxa=NULL, bg, col, cex, pch, text, arrange, col.bg, defaults, ylim=NULL, xlim=NULL, main=NULL, lwd = 3, lty.seg=1, lwd.seg=1, col.segments="gray", cex.text = 1) {
 
   DF = data.frame(
     X = obj$VERTICES$X[match(obj$TRANSLATE$VID, obj$VERTICES$VID)],
@@ -120,35 +121,35 @@ if( !is.null(taxa)) {
     g = col2rgb(col.bg)[2] / 255
     b = col2rgb(col.bg)[3] / 255
 
-    boxtext(x = DF$X[idx], y = DF$Y[idx], labels = DF$text[idx], col.bg = rgb(r,g,b,alpha=0.5), pos = 4, padding = 0.3, cex = 1.5)
+    boxtext(x = DF$X[idx], y = DF$Y[idx], labels = DF$text[idx], col.bg = rgb(r,g,b,alpha=0.5), pos = 4, padding = 0.3, cex = cex.text)
 
   }
 
-} else {
+} #else {
 
-  plot(DF$X,
-       DF$Y,
-       col = DF$col,
-       bg  = DF$bg,
-       cex = DF$cex,
-       pch = DF$pch,
-       ylim = ylim,
-       xlim = xlim,
-       ylab = "",
-       xlab = "",
-       axes = FALSE,
-       main = main,
-       lwd = lwd
-  )
+  #plot(DF$X,
+  #     DF$Y,
+  #     col = DF$col,
+  #     bg  = DF$bg,
+  #     cex = DF$cex,
+  #     pch = DF$pch,
+  #     ylim = ylim,
+  #     xlim = xlim,
+  #     ylab = "",
+  #     xlab = "",
+  #     axes = FALSE,
+  #     main = main,
+  #     lwd = lwd
+  #)
 
-  segments(x0 = obj$FROM$X, y0 = obj$FROM$Y, x1 = obj$TO$X, y1 = obj$TO$Y, col=col.segments, lty = lty.seg, lwd = lwd.seg)
+  #segments(x0 = obj$FROM$X, y0 = obj$FROM$Y, x1 = obj$TO$X, y1 = obj$TO$Y, col=col.segments, lty = lty.seg, lwd = lwd.seg)
 
-  r = col2rgb(col.bg)[1] / 255
-  g = col2rgb(col.bg)[2] / 255
-  b = col2rgb(col.bg)[3] / 255
+  #r = col2rgb(col.bg)[1] / 255
+  #g = col2rgb(col.bg)[2] / 255
+  #b = col2rgb(col.bg)[3] / 255
 
-  boxtext(x = DF$X, y = DF$Y, labels = DF$LABEL, col.bg = rgb(r,g,b,alpha=0.5), pos = 4, padding = 0.3, cex = 2)
+  #boxtext(x = DF$X, y = DF$Y, labels = DF$LABEL, col.bg = rgb(r,g,b,alpha=0.5), pos = 4, padding = 0.3, cex = 2)
 
-}
+#}
 
 }
