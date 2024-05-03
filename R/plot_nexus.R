@@ -159,29 +159,13 @@ plot_nexus <- function(obj, taxa=NULL, bg, col, cex, pch, text, arrange, col.bg,
 
   if ( !is.null(taxa) & (length(taxa) == length(DF$LABEL)) ) {
 
-          if (length(unique(DF$arrange))==1) {stop("Please specify at least one taxa at front or leave taxa null")} else {
 
-            DF.b = DF[DF$arrange=="back", ]
-            DF.f = DF[DF$arrange=="front", ]
-
-            points(DF.b$X,
-                   DF.b$Y,
-                   col = DF.b$col,
-                   bg  = DF.b$bg,
-                   cex = DF.b$cex,
-                   pch = DF.b$pch,
-                   ylim = ylim,
-                   xlim = xlim,
-                   ylab = "",
-                   xlab = ""
-            )
-
-            points(DF.f$X,
-                   DF.f$Y,
-                   col = DF.f$col,
-                   bg  = DF.f$bg,
-                   cex = DF.f$cex,
-                   pch = DF.f$pch,
+            points(DF$X,
+                   DF$Y,
+                   col = DF$col,
+                   bg  = DF$bg,
+                   cex = DF$cex,
+                   pch = DF$pch,
                    ylim = ylim,
                    xlim = xlim,
                    ylab = "",
@@ -189,7 +173,7 @@ plot_nexus <- function(obj, taxa=NULL, bg, col, cex, pch, text, arrange, col.bg,
             )
 
 
-          }
+
   }
 
   ##############################################################
