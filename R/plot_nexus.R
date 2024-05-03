@@ -2,7 +2,7 @@
 #'
 #' \code{plot_nexus} plot the network
 #'
-#' @param obj
+#' @param obj is a nexus object
 #' @param taxa is a vector of tips you want to format. Tips are format based of defaults set by list defaults. If a subset of tips must be reformat provide a vector of tips and relative bg, col, cex, pch, text, col.bg.
 #' @param defaults is a list with names: col, bg, cex, pch, text, arrange. Remember that "bg" = fill color and "col" = contour color. pch from 21 to 25 allow contour (col) and fill (bg) color
 #' @param arrange can be one of the two: "back" or "front"
@@ -18,15 +18,15 @@
 #' @return plot
 #' @author Alessandro Brozzi
 #' @examples
-#' def = list(col="blue", bg="orange", cex=5, pch=21, text=NA, arrange="back")
-#' nex = import.nexus(myfile)
+#' defaults = list(col="blue", bg="orange", cex=1, pch=21, text=NA, arrange="back")
+#' nex = import.nexus(myfile.nexus)
 #' plot_nexus(nex, defaults=def, lwd = 3, lwd.seg = 1, col.bg="white")
 #' # format tip A and B
 #' plot_nexus(nex, taxa = c("A", "B"), pch = c(22,22), bg = c("red", "red"), col=c("black", "black"),cex=c(3,3), text=c("A","B"), arrange="front", defaults=def, lwd = 3, lwd.seg = 1, col.bg="white")
 #' @export
 #'
 #'
-plot_nexus <- function(obj, taxa=NULL, bg, col, cex, pch, text, arrange, col.bg, defaults, ylim=NULL, xlim=NULL, main=NULL, lwd = 3, lty.seg=1, lwd.seg=1, col.segments="gray", cex.text = 1) {
+plot_nexus <- function(obj, taxa=NULL, bg, col, cex, pch, text, arrange, col.bg, defaults, ylim=NULL, xlim=NULL, main=NULL, lwd = 3, lty.seg=1, lwd.seg=1, col.seg="gray", cex.text = 1) {
 
   ############# init dataframe ############
 
@@ -49,7 +49,7 @@ plot_nexus <- function(obj, taxa=NULL, bg, col, cex, pch, text, arrange, col.bg,
   ############# xlim, ylim ##############
 
   if (is.null(xlim)) {
-    something = abs(diff(range(DF$X))/2)
+    something = abs(diff(range(DF$X))/5)
 
     xlim = c(range(DF$X)[1] - something,
              range(DF$X)[2] + something
@@ -57,7 +57,7 @@ plot_nexus <- function(obj, taxa=NULL, bg, col, cex, pch, text, arrange, col.bg,
   }
 
   if (is.null(ylim)) {
-    something = abs(diff(range(DF$Y)/2))
+    something = abs(diff(range(DF$Y)/5))
 
     ylim = c(range(DF$Y)[1] - something,
            range(DF$Y)[2] + something
@@ -75,54 +75,126 @@ plot_nexus <- function(obj, taxa=NULL, bg, col, cex, pch, text, arrange, col.bg,
   DF[match(taxa, DF$LABEL),"cex"]     = cex
   DF[match(taxa, DF$LABEL),"pch"]     = pch
   DF[match(taxa, DF$LABEL),"text"]    = text
-  DF[match(taxa, DF$LABEL),"arrange"] = "front"
+  DF[match(taxa, DF$LABEL),"arrange"] = "back"
 
  }
 
-  DF.b = DF[DF$arrange=="back", ]
+  ########### Empty plot ##############################################
 
-  plot(DF.b$X,
-       DF.b$Y,
-       col=DF.b$col,
-       bg = DF.b$bg,
-       cex=DF.b$cex,
-       pch=DF.b$pch,
-       type="n",
-       ylim=ylim,
-       xlim=xlim,
-       ylab="",
-       xlab="",
-       axes=FALSE,
-       main=main
+  plot(DF$X,
+       DF$Y,
+       col  = DF$col,
+       bg   = DF$bg,
+       cex  = DF$cex,
+       pch  = DF$pch,
+       type = "n",
+       ylim = ylim,
+       xlim = xlim,
+       ylab = "",
+       xlab = "",
+       axes = FALSE
   )
 
-  segments(x0 = obj$FROM$X, y0 = obj$FROM$Y, x1 = obj$TO$X, y1 = obj$TO$Y, col=col.segments, lty = lty.seg, lwd = lwd.seg)
+  segments(x0 = obj$FROM$X, y0 = obj$FROM$Y, x1 = obj$TO$X, y1 = obj$TO$Y, col=col.seg, lty = lty.seg, lwd = lwd.seg)
 
-  points(DF.b$X,
-         DF.b$Y,
-         col=DF.b$col,
-         bg = DF.b$bg,
-         cex=DF.b$cex,
-         pch=DF.b$pch,
-         ylim=ylim,
-         xlim=xlim,
-         ylab="",
-         xlab=""
-  )
+  #################################################################
 
-  DF.f =  DF[DF$arrange=="front", ]
+  ########### Case 0 ##############################################
 
-  points(DF.f$X,
-         DF.f$Y,
-         col=DF.f$col,
-         bg=DF.f$bg,
-         cex=DF.f$cex,
-         pch=DF.f$pch,
-         ylim=ylim,
-         xlim=xlim,
-         ylab="",
-         xlab=""
-  )
+  if(is.null(taxa)) {
+
+    points(DF$X,
+           DF$Y,
+           col = DF$col,
+           bg  = DF$bg,
+           cex = DF$cex,
+           pch = DF$pch,
+           ylim = ylim,
+           xlim = xlim,
+           ylab = "",
+           xlab = "",
+           lwd = lwd
+    )
+
+  }
+
+  ###############################################################
+
+  ############ Case 1 ###########################################
+
+  if ( !is.null(taxa) & (length(taxa) < length(DF$LABEL)) )  {
+
+    DF.b = DF[DF$arrange=="back", ]
+    DF.f = DF[DF$arrange=="front", ]
+
+    points(DF.b$X,
+           DF.b$Y,
+           col = DF.b$col,
+           bg  = DF.b$bg,
+           cex = DF.b$cex,
+           pch = DF.b$pch,
+           ylim = ylim,
+           xlim = xlim,
+           ylab = "",
+           xlab = ""
+    )
+
+    points(DF.f$X,
+           DF.f$Y,
+           col = DF.f$col,
+           bg  = DF.f$bg,
+           cex = DF.f$cex,
+           pch = DF.f$pch,
+           ylim = ylim,
+           xlim = xlim,
+           ylab = "",
+           xlab = ""
+    )
+
+  }
+
+  ##############################################################
+
+  ############ Case 2 ###########################################
+
+  if ( !is.null(taxa) & (length(taxa) == length(DF$LABEL)) ) {
+
+          if (length(unique(DF$arrange))==1) {stop("Please specify at least one taxa at front or leave taxa null")} else {
+
+            DF.b = DF[DF$arrange=="back", ]
+            DF.f = DF[DF$arrange=="front", ]
+
+            points(DF.b$X,
+                   DF.b$Y,
+                   col = DF.b$col,
+                   bg  = DF.b$bg,
+                   cex = DF.b$cex,
+                   pch = DF.b$pch,
+                   ylim = ylim,
+                   xlim = xlim,
+                   ylab = "",
+                   xlab = ""
+            )
+
+            points(DF.f$X,
+                   DF.f$Y,
+                   col = DF.f$col,
+                   bg  = DF.f$bg,
+                   cex = DF.f$cex,
+                   pch = DF.f$pch,
+                   ylim = ylim,
+                   xlim = xlim,
+                   ylab = "",
+                   xlab = ""
+            )
+
+
+          }
+  }
+
+  ##############################################################
+
+  ##################  Labels ##################################
 
   idx = which(!is.na(DF$text))
 
@@ -136,5 +208,4 @@ plot_nexus <- function(obj, taxa=NULL, bg, col, cex, pch, text, arrange, col.bg,
 
   }
 
-}
 }
