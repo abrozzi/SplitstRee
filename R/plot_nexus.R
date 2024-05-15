@@ -155,7 +155,7 @@ plot_nexus <- function(obj, taxa=NULL, bg, col, cex, pch, text, arrange, col.bg,
 
   #############################################################
 
-  ############ Case 2 ###########################################
+  ############ Case 2 #########################################
 
   if ( !is.null(taxa) & (length(taxa) == length(DF$LABEL)) ) {
 
